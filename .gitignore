@@ -1,0 +1,18 @@
+# Created by .ignore support plugin (hsz.mobi)
+*~
+._*
+*.log
+*.tmp
+.env
+config.php
+/vendor/
+
+# IDE: JetBrains, NetBeans, Eclipse
+/.settings/
+/.idea/
+.classpath
+.buildpath
+.project
+*.iml
+*.iws
+*.swp
