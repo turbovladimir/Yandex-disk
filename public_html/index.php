@@ -7,7 +7,7 @@
  */
 require dirname(__DIR__).'/vendor/autoload.php';
 require dirname(__DIR__). '/config.php';
-//
+
 $query = [
     'response_type' => 'code',
     'client_id' => $appId,
@@ -37,37 +37,42 @@ $controller = new \App\YandexDisk\Api\BaseApiController();
 $diskInfo = $controller->getDiskInfo($token);
 
 //html
-echo '
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Disk info</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script src="app.js"></script>
-    </head>
-    <body>
-    <div id="content">
-    ';
+$loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__).'/templates');
+$twig = new \Twig\Environment($loader);
 
-
-if (!$diskInfo) {
-    $authUrl = $controller->generateUrl('https://oauth.yandex.ru/authorize', $query);
-    echo "<a target='_blank' class='btn btn-warning' href='{$authUrl}' role='button' onclick='renderForm()'>Авторизоваться на яндекс диске</a>";
-} else {
-    echo "
-        <div class=\"alert alert-secondary\" role=\"alert\">
-        <h1 class=\"h1\">Api response</h1>
-        {$diskInfo}
-        </div>
-    ";
-}
-
-echo '</div></body>
-</html>
-';
+$template = $twig->load('index.html.twig');
+echo $template->render();
+//echo '
+//<!DOCTYPE html>
+//<html>
+//    <head>
+//        <meta charset="UTF-8">
+//        <title>Disk info</title>
+//        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+//              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+//        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+//                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+//        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+//                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+//        <script src="app.js"></script>
+//    </head>
+//    <body>
+//    <div id="content">
+//    ';
+//
+//
+//if (!$diskInfo) {
+//    $authUrl = $controller->generateUrl('https://oauth.yandex.ru/authorize', $query);
+//    echo "<a target='_blank' class='btn btn-warning' href='{$authUrl}' role='button' onclick='renderForm()'>Авторизоваться на яндекс диске</a>";
+//} else {
+//    echo "
+//        <div class=\"alert alert-secondary\" role=\"alert\">
+//        <h1 class=\"h1\">Api response</h1>
+//        {$diskInfo}
+//        </div>
+//    ";
+//}
+//
+//echo '</div></body>
+//</html>
+//';

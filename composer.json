@@ -12,6 +12,7 @@
   "require": {
     "php": ">=7",
     "ext-json": "*",
-    "guzzlehttp/guzzle": ">=6"
+    "guzzlehttp/guzzle": ">=6",
+    "twig/twig": "^2.0"
   }
 }
