@@ -1,5 +1,10 @@
 #content {
+    margin-top: 5em;
     justify-content: center;
     display: flex;
     align-items: center;
+}
+
+a {
+    padding: 5px;
 }
