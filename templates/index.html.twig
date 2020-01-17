@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disk info</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="content">
+        {% if codeData is defined %}
+                <p> Подтвердите ваш аккаунт, для этого введите данный код: {{ codeData.user_code }}
+                    <a href={{ codeData.verification_url }} >по ссылке</a></p>
+            <a class='btn btn-warning' href=/?reset_code=1 role='button'>Сбросить код</a>
+        {% elseif diskInfo is defined %}
+                <div class="alert alert-secondary" role="alert">
+                    <h1 class="h1">Информация о диске в формате json: </h1>
+                    <p>{{ diskInfo }}</p>
+                </div>
+            {% else %}
+                <a class='btn btn-warning' href=/?get_disc_info=1 role='button'>Получить информацию о диске</a>
+        {% endif %}
+    </div>
+</body>
+</html>
